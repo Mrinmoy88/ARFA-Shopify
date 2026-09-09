@@ -241,9 +241,6 @@
     </div>
 
     <div class="test2-pc__body">
-      {%- if card_product.vendor != blank -%}
-        <p class="test2-pc__vendor">{{ card_product.vendor }}</p>
-      {%- endif -%}
       <h3 class="test2-pc__title">
         <a href="{{ default_variant.url | default: card_product.url }}" class="test2-pc__variant-link">
           {{ card_product.title | escape }}

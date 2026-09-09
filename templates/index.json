@@ -12,8 +12,10 @@
     "test1_hero": {
       "type": "test1-hero",
       "settings": {
+        "background_image": "shopify://shop_images/Image.png",
         "headline_style": "image",
-        "headline_text": "Spring Break",
+        "headline_image": "shopify://shop_images/Text_Frame_31f1a235-0956-463c-aeda-f95f5edf096a.png",
+        "headline_text": "",
         "button_label": "Shop the collection",
         "button_collection": "",
         "show_reviews_tab": true,
@@ -51,6 +53,7 @@
         "products_to_show": 5,
         "max_swatches_visible": 4,
         "enable_quick_add": true,
+        "quick_add_image": "shopify://shop_images/Frame_125.png",
         "clearance_tag": "clearance",
         "final_sale_tag": "final-sale",
         "padding_top": 36,

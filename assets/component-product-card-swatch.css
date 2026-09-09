@@ -11,21 +11,21 @@
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 24px;
-  font-family: var(--test1-font-mono, 'DM Mono', monospace);
+  font-family: var(--test1-font-heading, var(--font-heading-family, sans-serif));
 }
 
 .test2-pc-grid__empty {
   max-width: 1440px;
   margin: 0 auto;
   padding: 48px 24px;
-  font-family: var(--test1-font-mono, 'DM Mono', monospace);
+  font-family: var(--test1-font-body, var(--font-body-family, sans-serif));
   color: var(--test1-color-muted, #8a8a8a);
 }
 
 .test2-pc {
   width: 100%;
   max-width: 214px;
-  font-family: var(--test1-font-mono, 'DM Mono', monospace);
+  font-family: var(--test1-font-body, var(--font-body-family, sans-serif));
 }
 
 .test2-pc__media {

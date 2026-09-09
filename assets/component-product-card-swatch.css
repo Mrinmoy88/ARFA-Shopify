@@ -329,7 +329,7 @@ product-card-quick-add {
 
 .test2-pc__price-now {
   color: var(--test1-color-ink, #2a2a2a);
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .test2-pc__price-was {

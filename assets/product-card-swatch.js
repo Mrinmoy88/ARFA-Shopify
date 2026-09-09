@@ -86,6 +86,7 @@ if (!customElements.get('product-card-quick-add')) {
         this.isAdding = true;
         this.button.classList.add('is-loading');
         this.button.classList.remove('is-error');
+        this.button.setAttribute('aria-busy', 'true');
 
         const cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
         const body = JSON.stringify({
@@ -124,6 +125,7 @@ if (!customElements.get('product-card-quick-add')) {
           })
           .finally(() => {
             this.button.classList.remove('is-loading');
+            this.button.removeAttribute('aria-busy');
             this.isAdding = false;
           });
       }

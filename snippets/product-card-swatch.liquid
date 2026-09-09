@@ -135,6 +135,40 @@
                   assign swatch_css = 'url(' | append: swatch_image_url | append: ')'
                 elsif value.swatch.color
                   assign swatch_css = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+                else
+                  assign value_name_down = value_name | downcase | strip
+                  case value_name_down
+                    when 'red'
+                      assign swatch_css = '#d64545'
+                    when 'blue'
+                      assign swatch_css = '#3d73b9'
+                    when 'green'
+                      assign swatch_css = '#4f8a58'
+                    when 'yellow'
+                      assign swatch_css = '#e5bd43'
+                    when 'orange'
+                      assign swatch_css = '#e27d3f'
+                    when 'pink'
+                      assign swatch_css = '#dd83a6'
+                    when 'purple'
+                      assign swatch_css = '#8064a2'
+                    when 'brown'
+                      assign swatch_css = '#8b6048'
+                    when 'beige'
+                      assign swatch_css = '#d8c4a8'
+                    when 'white'
+                      assign swatch_css = '#ffffff'
+                    when 'black'
+                      assign swatch_css = '#202020'
+                    when 'gray', 'grey'
+                      assign swatch_css = '#8b8b8b'
+                    when 'navy'
+                      assign swatch_css = '#243b62'
+                    when 'cream'
+                      assign swatch_css = '#f2e7cc'
+                    when 'multi', 'multicolor', 'multicolour'
+                      assign swatch_css = 'linear-gradient(135deg, #d64545 0 25%, #e5bd43 25% 50%, #4f8a58 50% 75%, #3d73b9 75%)'
+                  endcase
                 endif
 
                 assign swatch_image = matched_variant.featured_image | default: card_image
@@ -184,6 +218,7 @@
               aria-label="{% if default_variant.available %}Quick add{% else %}Sold out{% endif %}"
               {% unless default_variant.available %}disabled{% endunless %}
             >
+              <span class="test2-pc__quickadd-label">Add to cart</span>
               <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
                 <path d="M6 6.5V5.5a4 4 0 1 1 8 0v1h2.2a.6.6 0 0 1 .6.55l.7 9.2a1.6 1.6 0 0 1-1.6 1.75H4.1a1.6 1.6 0 0 1-1.6-1.75l.7-9.2a.6.6 0 0 1 .6-.55H6Zm1.3 0h5.4v-1a2.7 2.7 0 0 0-5.4 0v1Z" />
               </svg>

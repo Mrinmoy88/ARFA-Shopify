@@ -113,7 +113,7 @@ product-card-quick-add {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--swatch, #ccc);
+  background: var(--swatch, #ccc) center / cover no-repeat;
   border: 2px solid #fff;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
   cursor: pointer;
@@ -157,7 +157,8 @@ product-card-quick-add {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 9px 0;
+  min-height: 38px;
+  padding: 8px 12px;
   background: #fff;
   color: var(--test1-color-ink, #2a2a2a);
   font-size: 11px;
@@ -177,6 +178,11 @@ product-card-quick-add {
 .test2-pc__quickadd svg {
   width: 16px;
   height: 16px;
+  flex: 0 0 auto;
+}
+
+.test2-pc__quickadd-label {
+  line-height: 1;
 }
 
 .test2-pc__quickadd:hover:not(:disabled) {

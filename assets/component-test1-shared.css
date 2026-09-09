@@ -12,11 +12,11 @@
   --test1-color-teal-dark: #0b6d63;
   --test1-color-mint-bg: #a6f1ea;
 
-  --test1-font-display: var(--font-heading-family, Georgia, serif);
-  --test1-font-script: var(--font-heading-family, Georgia, serif);
-  --test1-font-handwritten: var(--font-heading-family, cursive);
-  --test1-font-sans: var(--font-body-family, sans-serif);
-  --test1-font-mono: var(--font-body-family, monospace);
+  --test1-font-display: 'Prata', Georgia, serif;
+  --test1-font-script: 'Playfair Display', Georgia, serif;
+  --test1-font-handwritten: 'Caveat', cursive;
+  --test1-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --test1-font-mono: 'DM Mono', 'Courier New', monospace;
 }
 
 .test1-btn {

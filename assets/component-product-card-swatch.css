@@ -233,8 +233,13 @@ product-card-quick-add {
 
 .test2-pc__title {
   margin: 0 0 2px;
-  font-size: 13px;
-  font-weight: 500;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 120%;
+  letter-spacing: normal;
+  vertical-align: middle;
   color: var(--test1-color-ink, #2a2a2a);
   overflow: hidden;
   display: -webkit-box;

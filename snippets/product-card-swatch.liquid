@@ -1,0 +1,216 @@
+{% comment %}
+  Renders a self-contained product card with colour swatches and a quick-add
+  button, driven entirely by real product/variant data. Designed to be
+  dropped into any grid (collection grid, related products, search
+  results, ...) — it does not depend on the section that renders it.
+
+  Accepts:
+  - card_product: {Object} Product Liquid object (required)
+  - section_id: {String} id of the parent section, used to namespace DOM ids (required)
+  - max_swatches: {Number} how many colour swatches to show before collapsing into a "+N" link. Default 4
+  - clearance_tag: {String} product tag that marks a product as clearance. Default 'clearance'
+  - final_sale_tag: {String} product tag that marks a product as final sale. Default 'final-sale'
+  - quick_add_enabled: {Boolean} show the quick-add button. Default true
+
+  Usage:
+  {% render 'product-card-swatch', card_product: product, section_id: section.id %}
+{% endcomment %}
+
+{%- liquid
+  assign max_swatches = max_swatches | default: 4
+  assign clearance_tag = clearance_tag | default: 'clearance'
+  assign final_sale_tag = final_sale_tag | default: 'final-sale'
+  if quick_add_enabled == nil
+    assign quick_add_enabled = true
+  endif
+-%}
+
+{%- if card_product and card_product != empty -%}
+  {%- liquid
+    assign default_variant = card_product.selected_or_first_available_variant
+
+    # Locate the colour option, if any, and build its list of swatch values.
+    assign color_option_index = -1
+    assign color_option = null
+    assign option_position = 0
+    for option in card_product.options_with_values
+      assign option_name_down = option.name | downcase
+      if option_name_down contains 'color' or option_name_down contains 'colour'
+        assign color_option_index = option_position
+        assign color_option = option
+      endif
+      assign option_position = option_position | plus: 1
+    endfor
+
+    assign total_colors = 0
+    if color_option
+      assign total_colors = color_option.values | size
+    endif
+    assign visible_colors = total_colors
+    if total_colors > max_swatches
+      assign visible_colors = max_swatches
+    endif
+    assign overflow_count = total_colors | minus: visible_colors
+
+    # Badges: sold out takes priority; otherwise a tag-driven badge.
+    assign is_sold_out = false
+    if card_product.available == false
+      assign is_sold_out = true
+    endif
+
+    assign is_final_sale = false
+    assign is_clearance = false
+    for tag in card_product.tags
+      assign tag_down = tag | downcase
+      if tag_down == final_sale_tag
+        assign is_final_sale = true
+      endif
+      if tag_down == clearance_tag
+        assign is_clearance = true
+      endif
+    endfor
+
+    assign card_image = default_variant.featured_image | default: card_product.featured_image
+    assign has_image = false
+    if card_image
+      assign has_image = true
+    endif
+  -%}
+
+  <article class="test2-pc{% if is_sold_out %} is-soldout{% endif %}">
+    <div class="test2-pc__media{% unless has_image %} test2-pc__media--noimage{% endunless %}">
+      <product-card-swatch>
+        {%- if has_image -%}
+          <a href="{{ default_variant.url | default: card_product.url }}" class="test2-pc__variant-link" tabindex="-1" aria-hidden="true">
+            <img
+              class="test2-pc__image"
+              src="{{ card_image | image_url: width: 428 }}"
+              srcset="{{ card_image | image_url: width: 214 }} 214w, {{ card_image | image_url: width: 428 }} 428w"
+              sizes="(min-width: 750px) 214px, 45vw"
+              alt="{{ card_image.alt | default: card_product.title | escape }}"
+              width="214"
+              height="296"
+              loading="lazy"
+            >
+          </a>
+        {%- endif -%}
+
+        {%- if is_sold_out -%}
+          <span class="test2-pc__badge test2-pc__badge--soldout">Sold out</span>
+        {%- elsif is_final_sale -%}
+          <span class="test2-pc__badge test2-pc__badge--finalsale">Final sale</span>
+        {%- elsif is_clearance -%}
+          <span class="test2-pc__badge test2-pc__badge--clearance">Clearance</span>
+        {%- endif -%}
+
+        {%- if color_option -%}
+          <ul class="test2-pc__swatches">
+            {%- for value in color_option.values -%}
+              {%- if forloop.index > visible_colors -%}
+                {%- break -%}
+              {%- endif -%}
+              {%- assign value_name = value | append: '' -%}
+              {%- liquid
+                assign matched_variant = value.variant
+                if matched_variant == null
+                  assign fallback_variant = null
+                  for variant in card_product.variants
+                    assign variant_color = variant.options[color_option_index]
+                    if variant_color == value_name
+                      if fallback_variant == null
+                        assign fallback_variant = variant
+                      endif
+                      if variant.available
+                        assign fallback_variant = variant
+                        break
+                      endif
+                    endif
+                  endfor
+                  assign matched_variant = fallback_variant
+                endif
+
+                assign swatch_css = null
+                if value.swatch.image
+                  assign swatch_image_url = value.swatch.image | image_url: width: 50
+                  assign swatch_css = 'url(' | append: swatch_image_url | append: ')'
+                elsif value.swatch.color
+                  assign swatch_css = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+                endif
+
+                assign swatch_image = matched_variant.featured_image | default: card_image
+                assign is_selected = false
+                if matched_variant.id == default_variant.id
+                  assign is_selected = true
+                endif
+              -%}
+              <li>
+                <button
+                  type="button"
+                  class="test2-pc__swatch{% if is_selected %} is-selected{% endif %}"
+                  {% if swatch_css %}
+                    style="--swatch:{{ swatch_css }};"
+                  {% endif %}
+                  aria-label="{{ value }}"
+                  aria-pressed="{{ is_selected }}"
+                  {% unless value.available %}disabled{% endunless %}
+                  data-variant-id="{{ matched_variant.id }}"
+                  data-available="{{ value.available }}"
+                  data-image="{% if swatch_image %}{{ swatch_image | image_url: width: 428 }}{% endif %}"
+                  data-price="{{ matched_variant.price | money }}"
+                  data-compare-at="{% if matched_variant.compare_at_price > matched_variant.price %}{{ matched_variant.compare_at_price | money }}{% endif %}"
+                  data-href="{{ value.product_url | default: card_product.url }}"
+                ></button>
+              </li>
+            {%- endfor -%}
+            {%- if overflow_count > 0 -%}
+              <li>
+                <a
+                  class="test2-pc__swatch-more"
+                  href="{{ card_product.url }}"
+                  aria-label="{{ overflow_count }} more colours — view product"
+                >+{{ overflow_count }}</a>
+              </li>
+            {%- endif -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if quick_add_enabled -%}
+          <product-card-quick-add>
+            <button
+              class="test2-pc__quickadd"
+              type="button"
+              data-quick-add
+              data-variant-id="{{ default_variant.id }}"
+              aria-label="{% if default_variant.available %}Quick add{% else %}Sold out{% endif %}"
+              {% unless default_variant.available %}disabled{% endunless %}
+            >
+              <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                <path d="M6 6.5V5.5a4 4 0 1 1 8 0v1h2.2a.6.6 0 0 1 .6.55l.7 9.2a1.6 1.6 0 0 1-1.6 1.75H4.1a1.6 1.6 0 0 1-1.6-1.75l.7-9.2a.6.6 0 0 1 .6-.55H6Zm1.3 0h5.4v-1a2.7 2.7 0 0 0-5.4 0v1Z" />
+              </svg>
+            </button>
+          </product-card-quick-add>
+        {%- endif -%}
+      </product-card-swatch>
+    </div>
+
+    <div class="test2-pc__body">
+      {%- if card_product.vendor != blank -%}
+        <p class="test2-pc__vendor">{{ card_product.vendor }}</p>
+      {%- endif -%}
+      <h3 class="test2-pc__title">
+        <a href="{{ default_variant.url | default: card_product.url }}" class="test2-pc__variant-link">
+          {{ card_product.title | escape }}
+        </a>
+      </h3>
+      {%- if card_product.type != blank -%}
+        <p class="test2-pc__type">{{ card_product.type }}</p>
+      {%- endif -%}
+      <p class="test2-pc__price">
+        <span class="test2-pc__price-now">{{ default_variant.price | money }}</span>
+        <span class="test2-pc__price-was" {% unless default_variant.compare_at_price > default_variant.price %}hidden{% endunless %}>
+          {{ default_variant.compare_at_price | money }}
+        </span>
+      </p>
+    </div>
+  </article>
+{%- endif -%}

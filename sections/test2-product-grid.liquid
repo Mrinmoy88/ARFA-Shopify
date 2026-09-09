@@ -1,0 +1,135 @@
+{{ 'component-test1-shared.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-card-swatch.css' | asset_url | stylesheet_tag }}
+{% render 'test1-fonts' %}
+
+{%- style -%}
+  #Test2Grid-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{%- endstyle -%}
+
+<div id="Test2Grid-{{ section.id }}">
+  {%- if section.settings.heading != blank -%}
+    <h2 class="test2-pc-grid__heading">{{ section.settings.heading | escape }}</h2>
+  {%- endif -%}
+
+  {%- assign display_collection = section.settings.collection -%}
+  {%- if display_collection == blank or display_collection.products_count == 0 -%}
+    {%- assign display_collection = collections.all -%}
+  {%- endif -%}
+
+  {%- if display_collection != blank and display_collection.products_count > 0 -%}
+    <div class="test2-pc-grid">
+      {%- for card_product in display_collection.products limit: section.settings.products_to_show -%}
+        {%- render 'product-card-swatch',
+          card_product: card_product,
+          section_id: section.id,
+          max_swatches: section.settings.max_swatches_visible,
+          clearance_tag: section.settings.clearance_tag,
+          final_sale_tag: section.settings.final_sale_tag,
+          quick_add_enabled: section.settings.enable_quick_add
+        -%}
+      {%- endfor -%}
+    </div>
+  {%- else -%}
+    <p class="test2-pc-grid__empty">
+      Add products to your store, then choose a collection here to display them.
+    </p>
+  {%- endif -%}
+</div>
+
+<script src="{{ 'product-card-swatch.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Product grid",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "New arrivals"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Falls back to all products when empty."
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 2,
+      "max": 24,
+      "step": 1,
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "max_swatches_visible",
+      "label": "Colour swatches to show before \"+N\"",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_quick_add",
+      "label": "Enable quick add",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Badges"
+    },
+    {
+      "type": "text",
+      "id": "clearance_tag",
+      "label": "Clearance tag",
+      "default": "clearance",
+      "info": "Products with this tag show a Clearance badge."
+    },
+    {
+      "type": "text",
+      "id": "final_sale_tag",
+      "label": "Final sale tag",
+      "default": "final-sale",
+      "info": "Products with this tag show a Final sale badge."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product grid"
+    }
+  ]
+}
+{% endschema %}

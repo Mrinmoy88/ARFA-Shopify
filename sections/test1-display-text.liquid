@@ -1,0 +1,51 @@
+{{ 'component-test1-shared.css' | asset_url | stylesheet_tag }}
+{{ 'section-test1-display-text.css' | asset_url | stylesheet_tag }}
+{% render 'test1-fonts' %}
+
+{%- liquid
+  assign fill_image = section.settings.fill_image
+  assign display_text = section.settings.text | default: 'Best sellers'
+  if fill_image
+    assign fill_image_url = fill_image | image_url: width: 1600
+  else
+    assign fill_image_url = 'test1-display-text-fill.jpg' | asset_url
+  endif
+-%}
+
+{% style %}
+  #Test1DisplayText-{{ section.id }} .test1-display-text__heading {
+    background-image: url({{ fill_image_url }});
+  }
+{% endstyle %}
+
+<section id="Test1DisplayText-{{ section.id }}" class="test1-display-text" aria-label="{{ display_text | escape }}">
+  <h2 class="test1-display-text__heading">{{ display_text }}</h2>
+</section>
+
+{% schema %}
+{
+  "name": "Display text",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "Best sellers",
+      "info": "Shown as large real text, filled with the image below. Stays selectable and translatable."
+    },
+    {
+      "type": "image_picker",
+      "id": "fill_image",
+      "label": "Fill image",
+      "info": "Shows through the letterforms. Uses a default image when empty."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Display text"
+    }
+  ]
+}
+{% endschema %}

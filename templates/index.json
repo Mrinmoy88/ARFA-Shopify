@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "test1_hero": {
+      "type": "test1-hero"
+    },
+    "test1_drop_teaser": {
+      "type": "test1-drop-teaser"
+    },
+    "test1_display_text": {
+      "type": "test1-display-text"
+    },
+    "test2_product_grid": {
+      "type": "test2-product-grid",
+      "settings": {
+        "heading": "New arrivals"
+      }
+    }
+  },
+  "order": [
+    "test1_hero",
+    "test1_drop_teaser",
+    "test1_display_text",
+    "test2_product_grid"
+  ]
+}

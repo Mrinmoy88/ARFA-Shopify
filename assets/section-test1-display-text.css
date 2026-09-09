@@ -1,0 +1,37 @@
+.test1-display-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 6vw, 64px) 16px;
+  background: #fff;
+}
+
+.test1-display-text__heading {
+  margin: 0;
+  font-family: var(--test1-font-display);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 0.92;
+  font-size: clamp(48px, 10vw, 140px);
+  text-align: center;
+  max-width: min(92vw, 1100px);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Fallback for browsers without background-clip: text support (e.g. older
+   Firefox/Safari builds). The heading itself is always real, selectable
+   text — this rule only changes how its fill is painted, so the text is
+   never invisible. */
+@supports not ((background-clip: text) or (-webkit-background-clip: text)) {
+  .test1-display-text__heading {
+    background-image: none !important;
+    color: var(--test1-color-ink);
+    -webkit-text-fill-color: var(--test1-color-ink);
+  }
+}

@@ -1,0 +1,23 @@
+{% comment %}
+  Renders the Google Fonts used by the Test 1 / Test 2 assignment sections
+  (test1-hero, test1-drop-teaser, test1-display-text, test2-product-grid).
+
+  All four sections render this snippet; the browser only fetches the
+  stylesheet once since the URL is identical every time.
+
+  Fonts read from the Figma file, kept as-is (all are open, web-licensed
+  Google Fonts, so no substitution was necessary):
+  - Prata (display heading, Test 1.3)
+  - Playfair Display, italic (script caption, Test 1.2)
+  - Caveat (handwritten labels, Test 1.2)
+  - Inter (buttons / form UI)
+  - DM Mono (product card text, Test 2)
+{% endcomment %}
+{% # theme-check-disable RemoteAsset %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&family=Prata&family=Caveat:wght@500;600&family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap"
+>
+{% # theme-check-enable RemoteAsset %}

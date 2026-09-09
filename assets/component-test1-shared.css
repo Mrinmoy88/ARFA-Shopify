@@ -1,0 +1,56 @@
+/* Shared design tokens and primitives for the Test 1 landing sections
+   (test1-hero, test1-drop-teaser, test1-display-text) and the Test 2
+   product card (component-product-card-swatch.css). Namespaced with a
+   `test1-` prefix on every custom property and class so nothing here can
+   collide with Dawn's own tokens or with a merchant's other theme edits. */
+
+:root {
+  --test1-color-ink: #2a2a2a;
+  --test1-color-muted: #8a8a8a;
+
+  --test1-color-teal: #2f8f88;
+  --test1-color-teal-dark: #0b6d63;
+  --test1-color-mint-bg: #a6f1ea;
+
+  --test1-font-display: 'Prata', Georgia, serif;
+  --test1-font-script: 'Playfair Display', Georgia, serif;
+  --test1-font-handwritten: 'Caveat', cursive;
+  --test1-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --test1-font-mono: 'DM Mono', 'Courier New', monospace;
+}
+
+.test1-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--test1-font-sans);
+  font-weight: 600;
+}
+
+.test1-btn--pill {
+  padding: 13px 30px;
+  border-radius: 3px;
+  background: var(--test1-color-mint-bg);
+  color: var(--test1-color-teal-dark);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .test1-btn--pill {
+    transition: background 0.15s ease;
+  }
+}
+
+.test1-btn--pill:hover {
+  background: #8fe9e0;
+}
+
+.test1-btn--pill:focus-visible {
+  outline: 2px solid var(--test1-color-teal-dark);
+  outline-offset: 2px;
+}

@@ -1,18 +1,60 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "test1_hero": {
-      "type": "test1-hero"
+      "type": "test1-hero",
+      "settings": {
+        "headline_style": "image",
+        "headline_text": "Spring Break",
+        "button_label": "Shop the collection",
+        "button_collection": "",
+        "show_reviews_tab": true,
+        "reviews_label": "Reviews",
+        "reviews_link": ""
+      }
     },
     "test1_drop_teaser": {
-      "type": "test1-drop-teaser"
+      "type": "test1-drop-teaser",
+      "settings": {
+        "eyebrow": "New drop coming soon",
+        "target_date": "2026-10-01T00:00",
+        "ended_message": "It's here — shop the drop now.",
+        "ended_button_label": "",
+        "ended_button_collection": "",
+        "caption": "Sneak peek…",
+        "form_label": "Get notified",
+        "email_placeholder": "user@gmail.com",
+        "button_label": "Notify me",
+        "success_message": "You're on the list — thanks!",
+        "error_message": "Something went wrong. Please try again."
+      }
     },
     "test1_display_text": {
-      "type": "test1-display-text"
+      "type": "test1-display-text",
+      "settings": {
+        "text": "Best sellers"
+      }
     },
     "test2_product_grid": {
       "type": "test2-product-grid",
       "settings": {
-        "heading": "New arrivals"
+        "heading": "",
+        "collection": "",
+        "products_to_show": 5,
+        "max_swatches_visible": 4,
+        "enable_quick_add": true,
+        "clearance_tag": "clearance",
+        "final_sale_tag": "final-sale",
+        "padding_top": 36,
+        "padding_bottom": 48
       }
     }
   },

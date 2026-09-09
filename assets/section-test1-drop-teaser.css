@@ -26,8 +26,9 @@
 
 .test1-drop__eyebrow {
   margin: 0;
-  font-family: var(--test1-font-handwritten);
-  font-weight: 600;
+  font-family: 'Pinyon Script', cursive;
+  font-weight: 400;
+  font-style: normal;
   font-size: clamp(24px, 3.2vw, 36px);
   text-align: center;
 }
@@ -72,15 +73,17 @@
 }
 
 .test1-countdown__group small {
-  font-family: var(--test1-font-handwritten);
-  font-weight: 600;
+  font-family: 'Pinyon Script', cursive;
+  font-weight: 400;
+  font-style: normal;
   font-size: clamp(16px, 1.6vw, 20px);
   opacity: 0.9;
 }
 
 .test1-countdown__ended {
-  font-family: var(--test1-font-handwritten);
-  font-weight: 600;
+  font-family: 'Pinyon Script', cursive;
+  font-weight: 400;
+  font-style: normal;
   font-size: clamp(22px, 2.6vw, 30px);
   text-align: center;
 }

@@ -28,7 +28,8 @@
           max_swatches: section.settings.max_swatches_visible,
           clearance_tag: section.settings.clearance_tag,
           final_sale_tag: section.settings.final_sale_tag,
-          quick_add_enabled: section.settings.enable_quick_add
+          quick_add_enabled: section.settings.enable_quick_add,
+          quick_add_image: section.settings.quick_add_image
         -%}
       {%- endfor -%}
     </div>
@@ -82,6 +83,12 @@
       "id": "enable_quick_add",
       "label": "Enable quick add",
       "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "quick_add_image",
+      "label": "Add to cart icon",
+      "info": "Optional image used inside the add to cart button."
     },
     {
       "type": "header",

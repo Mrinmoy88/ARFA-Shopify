@@ -11,6 +11,7 @@
   - clearance_tag: {String} product tag that marks a product as clearance. Default 'clearance'
   - final_sale_tag: {String} product tag that marks a product as final sale. Default 'final-sale'
   - quick_add_enabled: {Boolean} show the quick-add button. Default true
+  - quick_add_image: {Image} optional custom quick-add icon image
 
   Usage:
   {% render 'product-card-swatch', card_product: product, section_id: section.id %}
@@ -219,10 +220,20 @@
               {% unless default_variant.available %}disabled{% endunless %}
             >
               <span class="test2-pc__quickadd-label">Add to cart</span>
-              <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
-                <path d="M6.5 7.5h7l.7 9H5.8l.7-9ZM8 7.5V6a2 2 0 0 1 4 0v1.5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" />
-                <path d="M10 10v3M8.5 11.5h3" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
-              </svg>
+              {%- if quick_add_image -%}
+                <img
+                  class="test2-pc__quickadd-image"
+                  src="{{ quick_add_image | image_url: width: 80 }}"
+                  alt=""
+                  width="20"
+                  height="20"
+                >
+              {%- else -%}
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                  <path d="M6.5 7.5h7l.7 9H5.8l.7-9ZM8 7.5V6a2 2 0 0 1 4 0v1.5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" />
+                  <path d="M10 10v3M8.5 11.5h3" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+                </svg>
+              {%- endif -%}
             </button>
           </product-card-quick-add>
         {%- endif -%}

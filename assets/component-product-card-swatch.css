@@ -180,6 +180,13 @@ product-card-quick-add {
   flex: 0 0 auto;
 }
 
+.test2-pc__quickadd-image {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
 .test2-pc__quickadd-label {
   position: absolute;
   width: 1px;
